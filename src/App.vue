@@ -1,6 +1,27 @@
 <script setup>
 import CreateYourAccount from './components/Create-your-account.vue'
 import SocialProfiles from './components/Social-profiles.vue'
+import PersonalDetails from './components/Personal-details.vue'
+import { ref } from 'vue'
+
+let newEmail = ref('')
+let newPassword = ref('')
+let newCopyPassword = ref('')
+
+function handleEmail(email) {
+  console.log(email, 'sendedEmail')
+  newEmail.value = email
+}
+
+function handlePassword(password) {
+  console.log(password, 'sendedPassword')
+  newPassword.value = password
+}
+
+function handleCopyPassword(confirmedPassword) {
+  console.log(confirmedPassword, 'sendedCopyPassword')
+  newCopyPassword.value = confirmedPassword
+}
 </script>
 
 <template class="background">
@@ -13,7 +34,17 @@ import SocialProfiles from './components/Social-profiles.vue'
       <li>Personal Details</li>
     </ul>
     <!-- fieldsets -->
-    <CreateYourAccount></CreateYourAccount>
+    <CreateYourAccount
+      @sendedEmail="handleEmail"
+      @sendedPassword="handlePassword"
+      @sendedCopyPassword="handleCopyPassword"
+    ></CreateYourAccount>
+    <div>
+      <h3>Preview Data:</h3>
+      <p>Email: {{ newEmail }}</p>
+      <p>Password: {{ newPassword }}</p>
+      <p>Confirmed Password: {{ newCopyPassword }}</p>
+    </div>
     <SocialProfiles></SocialProfiles>
     <Personal-details></Personal-details>
   </form>

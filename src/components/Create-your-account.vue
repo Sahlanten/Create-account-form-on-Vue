@@ -1,13 +1,31 @@
-<script setup></script>
+<script setup>
+let emits = defineEmits(['sendedEmail', 'sendedPassword', 'sendedCopyPassword'])
+
+let mailAdress = ''
+let password = ''
+let confirmedPassword = ''
+
+function sendData() {
+  emits('sendedEmail', mailAdress)
+  emits('sendedPassword', password)
+  emits('sendedCopyPassword', confirmedPassword)
+  console.log('Emitted data:', mailAdress, password, confirmedPassword)
+}
+</script>
 
 <template>
   <fieldset>
     <h2 class="fs-title">Create your account</h2>
     <h3 class="fs-subtitle">This is step 1</h3>
-    <input type="text" name="email" placeholder="Email" />
-    <input type="password" name="pass" placeholder="Password" />
-    <input type="password" name="cpass" placeholder="Confirm Password" />
-    <input type="button" name="next" class="next action-button" value="Next" />
+    <input type="text" name="email" v-model="mailAdress" placeholder="Email" />
+    <input type="password" name="pass" v-model="password" placeholder="Password" />
+    <input
+      type="password"
+      name="cpass"
+      v-model="confirmedPassword"
+      placeholder="Confirm Password"
+    />
+    <input type="button" name="next" class="next action-button" value="Next" @click="sendData" />
   </fieldset>
 </template>
 
@@ -155,4 +173,3 @@ body {
   color: white;
 }
 </style>
- 
